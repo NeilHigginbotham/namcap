@@ -7,6 +7,7 @@ public class PacAI : MonoBehaviour
 {
     private Vector3 target;
     NavMeshAgent agent;
+    public bool PoweredUp;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();

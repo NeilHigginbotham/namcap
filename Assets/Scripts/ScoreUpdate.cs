@@ -29,13 +29,11 @@ public class ScoreUpdate : MonoBehaviour
             Destroy(collision.gameObject);
             
         }
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Power Up"))
+       /* if (collision.gameObject.layer == LayerMask.NameToLayer("Power Up"))
         {
             score -= 50;
             Destroy(collision.gameObject);
 
-        }
+        } */
     }
-
-
 }

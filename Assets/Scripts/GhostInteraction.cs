@@ -5,10 +5,12 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class GhostInteraction : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    public bool PoweredUp;
+
     void Start()
     {
-        
+        PoweredUp = false;
     }
 
     // Update is called once per frame
@@ -20,7 +22,7 @@ public class GhostInteraction : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Pacman"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Pacman") && (PoweredUp == false))
         {
             Destroy(collision.gameObject);
 
