@@ -8,10 +8,11 @@ public class ScoreUpdate : MonoBehaviour
 {
     public Text scoreText;
     private int score;
+    public bool PoweredUp;
 
     void Start()
     {
-
+        PoweredUp = false;
         scoreText.text = "";
     }
 
@@ -19,6 +20,7 @@ public class ScoreUpdate : MonoBehaviour
     void Update()
     {
         scoreText.text = "" + score;
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -29,11 +31,17 @@ public class ScoreUpdate : MonoBehaviour
             Destroy(collision.gameObject);
             
         }
-       /* if (collision.gameObject.layer == LayerMask.NameToLayer("Power Up"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Power Up"))
         {
             score -= 50;
             Destroy(collision.gameObject);
+        }
 
-        } */
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ghost") && PoweredUp == true)
+        {
+            score -= 200;
+            Destroy(collision.gameObject);
+        }
     }
 }
+

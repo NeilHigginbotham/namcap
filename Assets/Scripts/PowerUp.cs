@@ -7,7 +7,15 @@ public class PowerUp : MonoBehaviour
 {
     public bool PoweredUp;
     public float powerUpDuration = 5f;
+    private GhostInteraction ghost;
+    private ScoreUpdate powerUp;
 
+
+    private void Start()
+    {
+        ghost = FindObjectOfType<GhostInteraction>();
+        powerUp = FindObjectOfType<ScoreUpdate>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -18,10 +26,12 @@ public class PowerUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log ("powerup touched");
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
             ApplyPowerUpEffect(other.gameObject);
             StartCoroutine(RemovePowerUpEffectAfterDelay(other.gameObject));
-        }
+            ghost.PoweredUp = true;
+            powerUp.PoweredUp = true;
+        } 
     }
 
     private void ApplyPowerUpEffect(GameObject player)
@@ -33,5 +43,8 @@ public class PowerUp : MonoBehaviour
     {
         yield return new WaitForSeconds(powerUpDuration);
         PoweredUp = false;
+        ghost.PoweredUp = false;
+        powerUp.PoweredUp = false;
+        Destroy(gameObject);
     }
 }
