@@ -19,7 +19,6 @@ public class PowerUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log ("powerup touched");
-            Destroy(gameObject);
             ApplyPowerUpEffect(other.gameObject);
             StartCoroutine(RemovePowerUpEffectAfterDelay(other.gameObject));
         }
