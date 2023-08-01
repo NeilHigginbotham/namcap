@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,6 +20,8 @@ public class PacmanAI : MonoBehaviour
     public float walkPointRange;
 
     public Transform ghost1;
+
+
 
     private void Awake()
     {
@@ -40,37 +43,82 @@ public class PacmanAI : MonoBehaviour
 
     private void Searching()
     {
-        if (!walkPointSet) SearchWalkPoint();
+        if (!walkPointSet)
+        {
+            SearchWalkPoint();
+        }
+        else
+        {
+            Vector2 currentPos = new Vector2(transform.position.x, transform.position.y);
+            Vector2 distanceToWalkPoint = currentPos - walkPoint;
+
+            if (distanceToWalkPoint.magnitude < 1f)
+            {
+                walkPointSet = false;
+            }
+        }
 
         if (walkPointSet)
             agent.SetDestination(walkPoint);
 
-        Vector2 distanceToWalkPoint = transform.position - (Vector3)walkPoint;
-
-        //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f)
-            walkPointSet = false;
-
     }
+
     private void SearchWalkPoint()
     {
-        //Calculate random point in range
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
-        float randomY = Random.Range(-walkPointRange, walkPointRange);
+        Vector2 randomPoint;
 
-        Vector2 randomPoint = new Vector2(transform.position.x + randomX, transform.position.y + randomY);
+        int attempts = 0;
+        int maxAttempts = 30;
 
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomPoint, out hit, walkPointRange, NavMesh.AllAreas))
+        do
         {
-            walkPointSet = true;
-            walkPoint = hit.position;
+            // Calculate random point in range
+            float randomX = Random.Range(-walkPointRange, walkPointRange);
+            float randomY = Random.Range(-walkPointRange, walkPointRange);
+
+            randomPoint = new Vector2(transform.position.x + randomX, transform.position.y + randomY);
+            attempts++;
         }
+        while (!IsPointWithinNavMesh(randomPoint) && attempts < maxAttempts);
+
+        if (attempts >= maxAttempts)
+        {
+            // If we can't find a valid walk point after several attempts,
+            // use the current position as a fallback to avoid getting stuck.
+            randomPoint = transform.position;
+        }
+
+        walkPointSet = true;
+        walkPoint = randomPoint;
     }
 
+    private bool IsPointWithinNavMesh(Vector2 randomPoint)
+    {
+        NavMeshHit hit;
+        return NavMesh.SamplePosition(randomPoint, out hit, 10f, NavMesh.AllAreas);
+    }
 
     private void AttackGhost()
-    {
-        agent.SetDestination(ghost1.position);
-    }
+        {
+            agent.SetDestination(ghost1.position);
+        }
+ 
 }
+
+
+/*
+private void SearchWalkPoint()
+{
+    //Calculate random point in range
+    float randomX = Random.Range(-walkPointRange, walkPointRange);
+    float randomY = Random.Range(-walkPointRange, walkPointRange);
+
+    Vector2 randomPoint = new Vector2(transform.position.x + randomX, transform.position.y + randomY);
+
+    NavMeshHit hit;
+    if (NavMesh.SamplePosition(randomPoint, out hit, walkPointRange, NavMesh.AllAreas))
+    {
+        walkPointSet = true;
+        walkPoint = hit.position;
+    }
+} */
