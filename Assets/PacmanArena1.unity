@@ -26138,7 +26138,7 @@ MonoBehaviour:
   sightRange: 40
   attackRange: 40
   walkPoint: {x: 0, y: 0}
-  walkPointRange: 20
+  walkPointRange: 100
   ghost1: {fileID: 730879439}
 --- !u!1 &1570587592
 GameObject:

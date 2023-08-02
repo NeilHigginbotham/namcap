@@ -23,7 +23,7 @@ public class PacmanAI : MonoBehaviour
 
 
 
-    private void Awake()
+    void Start()
     {
         ghost1 = GameObject.Find("ghost").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -95,14 +95,13 @@ public class PacmanAI : MonoBehaviour
     private bool IsPointWithinNavMesh(Vector2 randomPoint)
     {
         NavMeshHit hit;
-        return NavMesh.SamplePosition(randomPoint, out hit, 10f, NavMesh.AllAreas);
+        return NavMesh.SamplePosition(randomPoint, out hit, walkPointRange, NavMesh.AllAreas);
     }
 
     private void AttackGhost()
         {
-            agent.SetDestination(ghost1.position);
+            agent.SetDestination(ghost1.transform.position);
         }
- 
 }
 
 
