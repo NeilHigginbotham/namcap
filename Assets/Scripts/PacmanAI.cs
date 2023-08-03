@@ -59,7 +59,11 @@ public class PacmanAI : MonoBehaviour
         }
 
         if (walkPointSet)
+        {
+            Debug.DrawLine(transform.position, walkPoint, UnityEngine.Color.blue);
             agent.SetDestination(walkPoint);
+        }
+            
 
     }
 
@@ -68,7 +72,8 @@ public class PacmanAI : MonoBehaviour
         Vector2 randomPoint;
 
         int attempts = 0;
-        int maxAttempts = 30;
+        int maxAttempts = 200;
+        float bufferRadius = agent.radius + 2f; // Helps agent reach walkPoint when hard to reach.
 
         do
         {
@@ -78,24 +83,33 @@ public class PacmanAI : MonoBehaviour
 
             randomPoint = new Vector2(transform.position.x + randomX, transform.position.y + randomY);
             attempts++;
+
+            Vector2 direction = (randomPoint - (Vector2)transform.position).normalized;
+            randomPoint -= direction * bufferRadius;
         }
         while (!IsPointWithinNavMesh(randomPoint) && attempts < maxAttempts);
 
         if (attempts >= maxAttempts)
+        
         {
-            // If we can't find a valid walk point after several attempts,
-            // use the current position as a fallback to avoid getting stuck.
-            randomPoint = transform.position;
+        // If we can't find a valid walk point after several attempts,
+        // set it to a fallback random point within the walkPointRange.
+        randomPoint = new Vector2(transform.position.x + Random.Range(-walkPointRange, walkPointRange),
+                                  transform.position.y + Random.Range(-walkPointRange, walkPointRange));
         }
+
 
         walkPointSet = true;
         walkPoint = randomPoint;
     }
 
-    private bool IsPointWithinNavMesh(Vector2 randomPoint)
+    private bool IsPointWithinNavMesh(Vector2 point)
     {
         NavMeshHit hit;
-        return NavMesh.SamplePosition(randomPoint, out hit, walkPointRange, NavMesh.AllAreas);
+        Debug.Log("navmeshbool check");
+
+        // Checks around the brand new randomPoint creatured in the do method. If area is found to be in the Navmesh, we should set the bool to true.
+        return NavMesh.SamplePosition(point, out hit, 1f, NavMesh.AllAreas);
     }
 
     private void AttackGhost()
