@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
+  - Eyes
+  - Junk Remover
   layers:
   - Default
   - TransparentFX
