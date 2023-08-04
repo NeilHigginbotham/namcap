@@ -31,6 +31,7 @@ public class PowerUp : MonoBehaviour
             StartCoroutine(RemovePowerUpEffectAfterDelay(other.gameObject));
             ghost.PoweredUp = true;
             powerUp.PoweredUp = true;
+            Debug.Log("powerup grabbed");
         } 
     }
 

@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class ScoreUpdate : MonoBehaviour
 {
+    public GameObject eyes;
     public Text scoreText;
     private int score;
     public bool PoweredUp;
+    private GhostInteraction ghostInteracton;
 
     void Start()
     {
         PoweredUp = false;
         scoreText.text = "";
+        ghostInteracton = GetComponent<GhostInteraction>();
     }
 
     // Update is called once per frame
@@ -41,7 +45,13 @@ public class ScoreUpdate : MonoBehaviour
         {
             score -= 200;
             Destroy(collision.gameObject);
+            Reincarnation();
         }
+    }
+    //Creates the eye gameobject which will respawn the ghost.
+    void Reincarnation()
+    {
+        Instantiate(eyes, transform.position, Quaternion.identity);
     }
 }
 
