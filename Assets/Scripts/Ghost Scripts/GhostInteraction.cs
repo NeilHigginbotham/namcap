@@ -5,7 +5,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class GhostInteraction : MonoBehaviour
 {
-
+    // Determines whether the ghost or pacman will die on collision.
     public bool PoweredUp;
 
     void Start()
@@ -13,13 +13,8 @@ public class GhostInteraction : MonoBehaviour
         PoweredUp = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-
+    // If the powerup has not been recently picked up, the ghost will destroy pacman.
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Pacman") && (PoweredUp == false))

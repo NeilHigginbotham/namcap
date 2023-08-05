@@ -24,19 +24,25 @@ public class PacmanAI : MonoBehaviour
 
 
 
+
     void Start()
     {
-        ghost1 = GameObject.Find("ghost").transform;
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
 
+    // This method tracks the new ghost if pacman happens to destroy it. Acesses script from GhostRespawn.cs
+    public void SetCurrentGhost(Transform ghost)
+    {
+        ghost1 = ghost;
+    }
     // Update is called once per frame
     void Update()
     {
         pelletInSightRange = Physics2D.OverlapCircle(transform.position, sightRange, Pellet);
         ghostInAttackRange = Physics2D.OverlapCircle(transform.position, attackRange, Ghost);
+
 
         if (pelletInSightRange && !ghostInAttackRange) Searching();
         if (pelletInSightRange && ghostInAttackRange) AttackGhost();
@@ -73,15 +79,15 @@ public class PacmanAI : MonoBehaviour
 
     private void AttackGhost()
     {
-    // Check if the ghost is in attack range
-    if (ghostInAttackRange)
-    {
+        // Check if the ghost is in attack range
+        if (ghostInAttackRange)
+        {
         // Set the walkPoint to a position that moves away from the ghost
         Vector2 directionToGhost = transform.position - ghost1.position;
         walkPoint = (Vector2)transform.position + directionToGhost.normalized * walkPointRange;
 
         agent.SetDestination(walkPoint);
-    }
+        }
     }
 }
 

@@ -188,3 +188,4 @@ MonoBehaviour:
   ghost1: {fileID: 1734923487714936089, guid: e251dc3b71ad2a34ca4ab0cc51a7d2f4, type: 3}
   Eyes: {fileID: 7338389889756110974}
   Ghostspawn: {fileID: 8720595495001492027, guid: bb1624199cb4d644e87b3a903d3ce8bc, type: 3}
+  ghost: {fileID: 1734923487714936089, guid: e251dc3b71ad2a34ca4ab0cc51a7d2f4, type: 3}

@@ -16,12 +16,8 @@ public class PowerUp : MonoBehaviour
         ghost = FindObjectOfType<GhostInteraction>();
         powerUp = FindObjectOfType<ScoreUpdate>();
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
+    // After the pacman touches the power up, they gain the temporary ability to destroy the ghost.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

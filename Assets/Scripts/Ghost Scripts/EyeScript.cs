@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EyeScript : MonoBehaviour
 {
-
+    // The eye spawns after ghost is defeated. The eye will run towards spawn and turn into a ghost.
     public NavMeshAgent agent;
     public Vector2 walkPoint;
     public GameObject GhostSpawn;

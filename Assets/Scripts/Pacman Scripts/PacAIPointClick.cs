@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class PacAI : MonoBehaviour
 {
+    // For testing purposes. Can be used to direct pacman manually with clicks.
     private Vector3 target;
     NavMeshAgent agent;
     public bool PoweredUp;
