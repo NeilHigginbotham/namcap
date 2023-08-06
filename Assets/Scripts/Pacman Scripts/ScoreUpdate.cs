@@ -12,6 +12,7 @@ public class ScoreUpdate : MonoBehaviour
     private int score;
     public bool PoweredUp;
     private GhostInteraction ghostInteracton;
+    public ScoreUpdater scoreUpdater; 
 
     void Start()
     {
@@ -25,6 +26,14 @@ public class ScoreUpdate : MonoBehaviour
     {
         scoreText.text = "" + score;
 
+    }
+    public void UpdateScoreAndSaveHighScore(int newScore)
+    {
+        // Update the score in the Text component
+        scoreText.text = newScore.ToString();
+
+        // Save the high score using the ScoreUpdater script
+        scoreUpdater.UpdateHighScore();
     }
 
     void OnCollisionEnter2D(Collision2D collision)

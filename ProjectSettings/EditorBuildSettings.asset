@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PacmanArena1.unity
     guid: 003edd1b7fba38943b3e8065916e070a
+  - enabled: 1
+    path: Assets/Scenes/VictoryScreen.unity
+    guid: 67c12ef8604205e4cae71e69e344b4eb
+  - enabled: 1
+    path: Assets/Scenes/DefeatScreen.unity
+    guid: e0d7d80d6f9effd41aeff59c75e53a4d
   m_configObjects: {}
