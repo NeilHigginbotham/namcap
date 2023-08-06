@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class YourScoreChangeLogic : MonoBehaviour
+public class ScoreChangeLogic : MonoBehaviour
 {
     public Text scoreText;
     public ScoreUpdater scoreUpdater; 
